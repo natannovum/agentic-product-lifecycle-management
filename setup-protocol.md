@@ -1,6 +1,6 @@
 # Setup Protocol
 
-The procedure for standing up the Agentic Product Management System in a project. Written for the agent doing the installation.
+The procedure for standing up the Agentic Product Lifecycle Management in a project. Written for the agent doing the installation.
 
 Read `system.md` first — it explains what is being built and why. This file is the how.
 
@@ -21,7 +21,7 @@ Every project-specific decision below follows the same order. **Do not skip ahea
 ## Order of installation
 
 1. **S1 — secret inventory**, and the enforcement hooks. First, always. It is the only item where being late is unrecoverable.
-2. **S4 — irreversibility inventory.** The item most likely to need a real conversation, and the one with no safe default.
+2. **S4 — what cannot be undone.** The item most likely to need a real conversation, and the one with no safe default.
 3. **S2, S3** — concern buckets and pending-work mode. These determine which files get created.
 4. Copy `templates/` into place, minus any bucket the project does not have.
 5. **S5–S12**, as their answers arrive. Write each into `CLAUDE.md` as it is settled.
@@ -31,7 +31,7 @@ Every project-specific decision below follows the same order. **Do not skip ahea
 
 ## S1 — Secret inventory
 
-**Needed:** what counts as radioactive in this project, so the handling rules and the enforcement hook have concrete targets.
+**Needed:** what counts as sensitive in this project (anything that could leak a credential), so the handling rules and the enforcement hook have concrete targets.
 
 **Harvest:** existing rules about credential handling in any agent-instruction file.
 
@@ -41,7 +41,7 @@ Every project-specific decision below follows the same order. **Do not skip ahea
 
 **Good answer:** credential names and locations, plus which are shared across environments and which are per-environment. A shared credential has a wider blast radius and should be flagged as such.
 
-**Default:** treat as radioactive any `.env*` file, any private key, any token or API key, any CI secret, any registry or publisher credential, and any command that dumps an environment wholesale. Extend from there — never narrow.
+**Default:** treat as sensitive any `.env*` file, any private key, any token or API key, any CI secret, any registry or publisher credential, and any command that dumps an environment wholesale. Extend from there — never narrow.
 
 **Also install:** the pre-commit secret scanner and the pre-tool-use guard. These are stack-independent. Run the guard's test suite after adapting its patterns.
 
@@ -89,7 +89,7 @@ Every project-specific decision below follows the same order. **Do not skip ahea
 
 ---
 
-## S4 — Irreversibility inventory (Tier 2)
+## S4 — What cannot be undone (Tier 2: actions that need explicit approval)
 
 **The most consequential item here. Do not guess at it.**
 
@@ -167,7 +167,7 @@ Whether the project runs a single integration branch, or two tiers (an integrati
 - **The agent that wrote the change does not grade it.** Verification goes to a fresh context.
 - **Judge against a deterministic signal**, not by reasoning about output from scratch.
 - **Circuit breakers on the fix loop:** stop and escalate on three failed fix rounds, on oscillation (a fix re-breaks a passing check), when the fix needs a product judgment call, or when the specification is genuinely ambiguous. Otherwise keep fixing silently — do not ask permission to continue.
-- **Test intensity tiers by change type:** documentation and version bumps get no regression run; a localised change gets a targeted subset; a change to a foundational file gets the full matrix.
+- **Test intensity tiers by change type:** documentation and version bumps get no regression run; a localized change gets a targeted subset; a change to a foundational file gets the full matrix.
 
 **Default:** if there is no mechanical signal, **say so plainly** rather than describing a process that does not exist, and record establishing one as the first documentation todo.
 
@@ -177,7 +177,7 @@ Whether the project runs a single integration branch, or two tiers (an integrati
 
 **Needed:** how to run, build, watch and test locally, and what breaks if the environment is wrong.
 
-**Inspect:** package manifest scripts, container definitions, runtime version files, README setup, and **CI setup steps — which are a working environment specification by construction.**
+**Inspect:** package manifest scripts, container definitions, runtime version files, README setup, and **CI setup steps — which are a working description of the environment, since CI has to run it.**
 
 **Ask:** *"What isn't written down that a new machine would get wrong?"*
 

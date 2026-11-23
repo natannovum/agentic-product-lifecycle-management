@@ -12,7 +12,7 @@ Append-only history of changes to published surfaces — marketing site, user do
 
 ## Sample — YYYY-MM-DD — Feature description updated across listings
 
-- **The "offline mode" paragraph described behaviour removed two releases ago.** Rewritten in `product-marketing/_shared/description.md`.
+- **The "offline mode" paragraph described behavior removed two releases ago.** Rewritten in `product-marketing/_shared/description.md`.
   - **Pushed:** `<store>-stable`, `<store>-beta`
   - **Staged, not pushed:** `website` — awaiting the next site deploy
   - Marketing site and user manual reviewed for the same claim; the manual's "Working offline" page also referenced it and was updated in the same pull request.

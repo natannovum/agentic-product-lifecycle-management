@@ -1,8 +1,8 @@
-# Agentic Product Management System
+# Agentic Product Lifecycle Management
 
-A documentation and work-tracking system for software projects built with AI coding agents.
+A product-lifecycle management system for software development with AI coding agents.
 
-**What this file is:** the canonical description of what the system is, how it is structured, and why. It is descriptive. The rules an agent follows day to day live in the project's `CLAUDE.md`, generated from `templates/CLAUDE.md`; the procedure for standing the system up lives in `setup-protocol.md`.
+**What this file is:** the full description of what the system is, how it is structured, and why. It describes; it sets no rules. The rules an agent follows day to day live in the project's `CLAUDE.md`, created from `templates/CLAUDE.md`. The procedure for setting the system up lives in `setup-protocol.md`.
 
 ---
 
@@ -17,13 +17,13 @@ The code records **what** the current state is. Version control records **when**
 - **which assumption turned out to be wrong** during the work
 - **how the change was verified**, and against what
 
-That knowledge exists only in the session that produced it — a transcript that is discarded, held by an agent whose context resets completely between sessions. Without an external record it is gone when the session ends.
+That knowledge exists only in the session that produced it. The session is a transcript that gets discarded, and the agent that held it starts the next session with a blank memory. Without a written record, it is gone when the session ends.
 
-The questions that recur months later are: *Why is it done this way? Did we already try the obvious fix? Is this behaviour deliberate or accidental? Can I trust that this was tested?* A diff answers none of them.
+The questions that come up months later are: *Why is it done this way? Did we already try the obvious fix? Is this behavior deliberate or accidental? Can I trust that this was tested?* A diff answers none of them.
 
-**The constraint that shapes every decision below:** the writer and the reader are usually the same agent with no shared memory. The system optimises for *reconstruction by a stranger*, not for note-taking by someone who was present.
+**The constraint behind every decision below:** the person or agent reading a record later is usually not the one who wrote it, and has no memory of the work. So every record is written for a stranger who was not there, not as a private note to oneself.
 
-A second problem compounds the first. A product is not only code. It has a marketing site, user documentation, sometimes store listings — surfaces that must stay truthful as the product changes, and that drift the moment nobody is watching. Agents are well suited to keeping these current, but only if the project records what changed in a form the agent can act on. The system treats these published surfaces as a first-class concern rather than an afterthought (§5).
+A second problem adds to the first. A product is more than code. It has a marketing website, a user manual, and sometimes store listings. These must stay accurate as the product changes, and they go out of date quietly once nobody is watching. Agents are well suited to keeping them current, but only if the project records what changed in a form the agent can act on. The system treats these published surfaces as a core concern rather than an afterthought (§5).
 
 ### What the system covers
 
@@ -43,15 +43,9 @@ An agent-instruction file (`CLAUDE.md` or equivalent) already solves one part of
 
 The rules file says how to work. These say what was learned by working.
 
-**2. Protect — verify changes and prevent regressions.** A record of how something was verified is worth little unless verification actually happens, and happens against a signal that cannot be talked out of a verdict. The system requires every entry to state its verification and defines the principles that verification obeys (§9 of `setup-protocol.md` covers eliciting the mechanism; the principles are in `templates/CLAUDE.md`).
+**2. Protect — verify changes and prevent regressions.** A record of how something was verified is worth little unless the verification really happened, and unless it used an automated pass/fail check that no one can argue past. The system requires every entry to state how the change was verified. It also sets the principles that verification follows. `setup-protocol.md` → **S7** covers how to find out what a project's check is, and the principles themselves are in `templates/CLAUDE.md`.
 
-**3. Propagate — keep external content current with each release.** Marketing copy, user documentation, and store listings must track the product. This is the pillar most often left entirely undone, because it is nobody's job and nothing fails when it is skipped.
-
-### Why "product management" rather than "documentation"
-
-Documentation is one output of this system, not its purpose. The system spans the product lifecycle: capturing what was learned during development, protecting the product against regression, and propagating changes outward to everything a user reads.
-
-Product marketing sits inside that scope as a lifecycle step, even though in most organisations marketing and product management are separate functions in separate departments. The separation is organisational, not logical — the release that changes a behaviour and the sentence on a website describing that behaviour are the same fact, recorded twice, and treating them as separate concerns is precisely how the second one goes stale.
+**3. Propagate — keep external content current with each release.** Marketing copy, user documentation, and store listings must keep up with the product. This is the pillar most often left undone, because it is nobody's job and nothing fails when it is skipped.
 
 ---
 
@@ -123,7 +117,7 @@ Above the grid sits **`dev-log.md`** — one entry per working session, carrying
 
 ### Why finished and pending are separate
 
-They have different lifetimes and different readers. A finished entry is **immutable history** — appended, never edited. A pending item is **mutable intent** — re-scoped, re-prioritised, abandoned. Combined, they produce a document where you cannot distinguish what is true from what was once merely planned, and that ambiguity cannot be recovered later.
+They have different lifetimes and different readers. A finished entry is **immutable history** — appended, never edited. A pending item is **mutable intent** — re-scoped, re-prioritized, abandoned. Combined, they produce a document where you cannot distinguish what is true from what was once merely planned, and that ambiguity cannot be recovered later.
 
 This is the highest-value structural decision in the system.
 
@@ -135,7 +129,7 @@ Three concerns is the common shape, not a law. A project with no published surfa
 
 **The count is a decision that has to be revisited, and there is a symptom that tells you when.** Watch for entries filed somewhere they do not belong because there is nowhere better. In the reference project this ran for months: deployments of the product across a fleet of servers were recorded in the *marketing-content* change log, and the tooling that supports the product — test harness, provisioning scripts, credential handling, server rebuilds — was scattered across all three todo files as level-one initiatives, because none of the three concerns was its home.
 
-**Tooling and infrastructure is the most common fourth concern**, and it is under-recognised precisely because it is not the product and has no user. If a project has a test harness that is itself maintained, servers that are rebuilt, or credentials that rotate, that work needs a concern or it will silently colonise another one.
+**Tooling and infrastructure is the most common fourth concern**, and it is under-recognized precisely because it is not the product and has no user. If a project has a test harness that is itself maintained, servers that are rebuilt, or credentials that rotate, that work needs a concern of its own. Without one, it ends up filed unnoticed under another concern.
 
 **The test:** for each concern, ask *what is the audience of this log, and what question do they arrive with?* Two concerns whose readers arrive with the same question should merge; one whose readers arrive with two different questions should split. A deployment log and a marketing-copy log answer nothing in common.
 
@@ -193,9 +187,9 @@ Three rules follow, and they are the ones that make Mode A work:
 
 No tracker. The `todo-*.md` files *are* the queue, and carry the full weight: item, rationale, specification, prerequisites, and any material needed to pick the work up cold.
 
-**Mode B is a fallback, not the intended design, and the files should say so.** A markdown file has no state field, no archive, and no forcing function to close anything, so items accumulate and never leave. Left alone long enough a todo file becomes an undifferentiated mixture of stale inventories, long-range roadmaps and live items with nothing distinguishing them — at which point it is worse than no record, because it looks authoritative.
+**Mode B is a fallback, not the intended design, and the files should say so.** A markdown file has no status field, no archive, and nothing that prompts anyone to close an item, so items pile up and never leave. Left long enough, a todo file turns into a mix of outdated lists, long-range plans and live work, with nothing to tell them apart. At that point it is worse than no record, because it still looks trustworthy.
 
-Mode B therefore carries one extra obligation: **a periodic triage** — walk the file, close what is done, delete what is dead, and move anything that is really a specification into `documentation-dev/`. If triage keeps slipping, that is the signal to adopt a tracker.
+Mode B therefore carries one extra obligation: **review the file regularly.** Close what is done, delete what is dead, and move anything that is really a specification into `documentation-dev/`. If the review keeps slipping, that is the signal to adopt a tracker.
 
 **Migrating B → A** is not automatic. Connecting a tracker does not clean up an accumulated todo file; that is a separate exercise of triaging what is live, creating tickets for it, and archiving the rest.
 
@@ -248,7 +242,7 @@ The inverse arrangement — where the live system is authoritative and the repos
 
 **Ideal.** The agent publishes directly through whatever API the destination exposes — CMS, store API, static-site deploy. The mechanics differ entirely by stack; the principles do not.
 
-Note that direct publishing is almost always **Tier 2** (see `templates/CLAUDE.md`): it reaches users, and it is hard to retract.
+Note that direct publishing almost always counts as **Tier 2**, meaning an action that needs your explicit approval first (see `templates/CLAUDE.md`). It reaches users, and it is hard to retract.
 
 ### Rules that hold at both levels
 
@@ -268,7 +262,7 @@ The most frequently confused distinction in the system.
 | **Nature** | Append-only history | Current-state truth |
 | **Phrasing** | "On this date, X became Y because Z" | "It is Y" |
 | **Editing** | Never rewritten; corrections are new dated entries | Rewritten in place as reality changes |
-| **Growth** | Monotonic, forever | Roughly flat |
+| **Growth** | Only ever grows | Stays roughly the same size |
 
 A fact usually belongs in both, phrased differently. The change log records the transition; the reference doc records the resulting state, and the reason where it is load-bearing.
 
@@ -286,23 +280,23 @@ A fact usually belongs in both, phrased differently. The change log records the 
 
 When a section of the current specs is superseded, it moves to the retired file with a note naming what replaced it and when. The friction is deliberate.
 
-Superseded designs get consulted more often than expected: when a new approach hits a wall the old one had solved, when a regression traces to behaviour that was intentional under the previous design, or when the reason an approach was abandoned answers a current question. Deleting the section makes it unrecoverable in practice — it survives in version history, but nobody performs archaeology on a deleted doc section; the cost of finding it exceeds the cost of re-deriving it badly.
+Superseded designs get consulted more often than expected: when a new approach hits a wall the old one had solved, when a regression traces to behavior that was intentional under the previous design, or when the reason an approach was abandoned answers a current question. Deleting the section makes it unrecoverable in practice — it survives in version history, but nobody performs archaeology on a deleted doc section; the cost of finding it exceeds the cost of re-deriving it badly.
 
 ---
 
 ### 🔴 A check must assert the OUTCOME, not the property that changed
 
-The most expensive verification failure is not a missing test. It is a passing one that measures the wrong thing.
+The most expensive verification failure is not a missing test. It is a test that passes while measuring the wrong thing.
 
-A check is usually written after the code, by whoever just changed a property — so it asserts that property. The property is correct. The requirement is not met. In the reference project a layout rule shipped half-working through **1537 assertions, a working negative control and a regression pass over 26 real pages**, because every one of them asked whether a margin was zero rather than whether there was a gap. The margin *was* zero. A second element's padding held the gap open.
+A check is usually written after the code, by whoever just changed a setting, so it checks that setting. The setting is correct, but the requirement is not met. In the reference project a page-layout rule shipped half-working through **1537 assertions, a working negative control and a regression pass over 26 real pages**. Every one of them asked whether a margin was zero, when the real question was whether there was a visible gap. The margin *was* zero, but a second element's padding held the gap open.
 
 Three rules follow, and they are cheap:
 
-1. **Write the requirement as a sentence a user would say, before writing the check.** Assert that sentence. "There is no gap between the header and the first block" is checkable; "margin-top is 0" is a restatement of the diff.
-2. **Every check needs a control whose expected answer is different.** A check that can only return one answer is not a check. Make it structural — a harness that *refuses* a check without a control is worth more than a convention that asks for one.
-3. **Prefer measuring relationships over reading properties.** Give the harness primitives that expose distances between things and withhold the properties that produce them, so the honest check is also the cheaper one to write.
+1. **Write the requirement as a sentence a user would say, before writing the check.** Then check that sentence. "There is no gap between the header and the first block" can be checked. "margin-top is 0" only restates the change you just made.
+2. **Every check needs a control whose expected answer is different.** A check that can only return one answer is not a check. Make this automatic where you can. A test tool that *refuses* to run a check without a control works better than a convention that asks for one.
+3. **Prefer checks that measure what a user would see over checks that read a setting.** Give the test tools helpers that report results, such as the distance between two elements. Do not give them access to the raw settings that produce those results. That way the honest check is also the easiest one to write.
 
-The same failure has a fixture-shaped twin: a control case that is not in the control state. Verify the fixture is in the state you are claiming *before* measuring — including when that state is "the default", which is exactly the assumption nobody checks.
+A related trap: a control test that is not actually in the state you think it is. Confirm the test setup is in the intended state *before* measuring, including when that state is "the default", which is the assumption nobody checks.
 
 ## 7. What a durable entry contains
 
@@ -340,7 +334,7 @@ Recorded because a system document that lists only strengths teaches the reader 
 
 **Mode B degrades without triage.** See §4. The failure is structural, not a matter of care.
 
-**The system has no forcing function of its own.** Nothing fails if a session skips its entries. The cost is invisible at the time and paid months later by whoever needs the record. Hooks and checklists reduce this; they do not eliminate it.
+**Nothing makes a session follow the rules.** Nothing fails if a session skips its entries. The cost is invisible at the time and is paid months later by whoever needs the record. Automated hooks and checklists reduce this, but do not remove it.
 
 ---
 

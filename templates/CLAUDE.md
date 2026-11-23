@@ -18,7 +18,7 @@ Guidance for the coding agent working in this repository. Canonical home for **p
 
 ## Development Commands
 
-> **SETUP — S8.** Build, run, watch, test, lint, package. Read the package manifest and CI setup steps first; they are a working environment specification by construction.
+> **SETUP — S8.** Build, run, watch, test, lint, package. Read the package manifest and CI setup steps first; they are a working description of the environment, since CI has to run it.
 
 ## Development Environment
 
@@ -38,7 +38,7 @@ Infrastructure, environments, and the branch-to-environment mapping are document
 4. **If a value genuinely must be used, keep it out of the transcript.** Pipe it host-side, reference it by variable, or have the user place it into the target system directly. Read it into a shell variable and test *against* it; never echo it.
 5. **If a secret leaks, say so immediately and in the same turn.** Name the credential, the blast radius, and the rotation path. Do not bury it, defer it, or argue the exposure was probably harmless. Then rotate — assume compromise.
 
-> **SETUP — S1.** List this project's radioactive files, paths, and commands. Names and locations only — **never a value, and refuse one if offered.** Add a do/don't table with this stack's specific formulations.
+> **SETUP — S1.** List this project's sensitive files, paths, and commands. Names and locations only — **never a value, and refuse one if offered.** Add a do/don't table with this stack's specific formulations.
 
 ### Enforcement — a hook, not a habit
 
@@ -67,7 +67,7 @@ Infrastructure, environments, and the branch-to-environment mapping are document
 
 ### Permission and risk tiers
 
-**Approval friction is calibrated to irreversibility, not to how dangerous an action sounds.** The dividing question: can this be undone with version control or an existing backup? Deleting a tracked file sounds alarming and is trivially recoverable; a one-word edit to live customer-facing copy sounds harmless and is not.
+**How much approval an action needs depends on whether it can be undone, not on how dangerous it sounds.** The dividing question: can this be undone with version control or an existing backup? Deleting a tracked file sounds alarming and is trivially recoverable; a one-word edit to live customer-facing copy sounds harmless and is not.
 
 **Tier 0 — autonomous.** Anything recoverable from version control or a backup: file edits, commits and pushes on working branches, tags, pull-request creation, builds, local runs, test suites, documentation and log updates. Execute without asking; never interrupt a working round for these.
 
@@ -152,7 +152,7 @@ Rules that hold at either level:
 
 ## Documentation Workflow
 
-> **This section is the operative rules.** The reasoning behind them is in [`system.md`](https://github.com/natannovum/agentic-product-management-system/blob/main/system.md). Read that before *changing* the system; you do not need it to *operate* it. If the two disagree, this section wins.
+> **This section is the operative rules.** The reasoning behind them is in [`system.md`](https://github.com/natannovum/agentic-product-lifecycle-management/blob/main/system.md). Read that before *changing* the system; you do not need it to *operate* it. If the two disagree, this section wins.
 
 **Every session writes a `dev-log.md` entry** — the executive summary: assignment, reasoning, what went wrong, what was left undone. In addition, the session updates one or more change logs with the implementation detail. Cross-reference by date. In the pull-request description, report which logs and reference docs were updated.
 
@@ -173,7 +173,7 @@ Plus `docs/dev-log.md` — cross-concern, one entry per session.
 - **Deferred work becomes a ticket in the same session it is deferred**, with the ID in that session's `dev-log.md` entry and the index updated.
 - **Anything load-bearing for understanding the product lives in the repository, not only in the tracker.** Copy durable insight into `documentation-dev/` before a ticket closes.
 
-**Pending-work mode: B — self-contained.** *(Delete if Mode A.)* The `todo-*.md` files are the queue and carry the full weight: item, rationale, specification, prerequisites. **This is a fallback, not the intended design** — markdown has no state field and no forcing function to close anything, so items accumulate and never leave. **Triage periodically:** close what is done, delete what is dead, move specifications into `documentation-dev/`. If triage keeps slipping, adopt a tracker.
+**Pending-work mode: B — self-contained.** *(Delete if Mode A.)* The `todo-*.md` files are the queue and carry the full weight: item, rationale, specification, prerequisites. **This is a fallback, not the intended design** — markdown has no status field and nothing that prompts anyone to close an item, so items accumulate and never leave. **Triage periodically:** close what is done, delete what is dead, move specifications into `documentation-dev/`. If triage keeps slipping, adopt a tracker.
 
 ### Ordering
 
@@ -211,7 +211,7 @@ Scope it to what the session touched; a full pass over a large file is its own t
 | `documentation-dev/design-intentions-and-rationale.md` | A decision was made or newly codified — **including options rejected** |
 | `documentation-dev/latest-implementation-specs.md` | A subsystem's implementation changed |
 | `documentation-dev/retired-implementation-specs.md` | A spec section was superseded — **move it here, do not delete it** |
-| `documentation-user/` or the user-manual surface | User-facing behaviour changed |
+| `documentation-user/` or the user-manual surface | User-facing behavior changed |
 
 ---
 
@@ -236,7 +236,7 @@ Four principles hold regardless of mechanism:
 - **The agent that wrote the change does not grade it.** Verification goes to a fresh context.
 - **Judge against a deterministic signal**, not by reasoning about output from scratch.
 - **Circuit breakers on the fix loop:** stop and escalate on three failed fix rounds, on oscillation (a fix re-breaks a passing check), when the fix needs a product judgment call, or when the specification is ambiguous. Otherwise keep fixing silently — do not ask permission to continue.
-- **Test intensity tiers by change type:** documentation and version bumps get no regression run; a localised change gets a targeted subset; a change to a foundational file gets the full matrix.
+- **Test intensity tiers by change type:** documentation and version bumps get no regression run; a localized change gets a targeted subset; a change to a foundational file gets the full matrix.
 
 ---
 
@@ -256,8 +256,8 @@ Detailed specifications live in dedicated documents. Read the relevant file when
 
 | Topic | File |
 |---|---|
-| Why the documentation system is shaped this way | [`system.md`](https://github.com/natannovum/agentic-product-management-system/blob/main/system.md) |
-| Standing the system up in a project | [`setup-protocol.md`](https://github.com/natannovum/agentic-product-management-system/blob/main/setup-protocol.md) |
+| Why the documentation system is shaped this way | [`system.md`](https://github.com/natannovum/agentic-product-lifecycle-management/blob/main/system.md) |
+| Standing the system up in a project | [`setup-protocol.md`](https://github.com/natannovum/agentic-product-lifecycle-management/blob/main/setup-protocol.md) |
 | Infrastructure, environments, pipeline | `docs/documentation-dev/infrastructure-and-repo-model.md` |
 | Codebase gotchas and edge cases | `docs/documentation-dev/codebase-tricky-parts.md` |
 | Design rationale, and options rejected | `docs/documentation-dev/design-intentions-and-rationale.md` |

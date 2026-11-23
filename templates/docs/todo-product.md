@@ -20,7 +20,7 @@ Keep it to one row per open item. Detail belongs in the ticket; **rationale that
 
 ## Mode B — self-contained *(delete if Mode A)*
 
-> **This mode is a fallback, not the intended design.** Markdown has no state field, no archive, and no forcing function to close anything, so items accumulate and never leave. Left alone, this file becomes an undifferentiated mixture of stale inventories, roadmaps and live items — at which point it is worse than no record, because it still looks authoritative.
+> **This mode is a fallback, not the intended design.** Markdown has no status field, no archive, and nothing that prompts anyone to close an item, so items accumulate and never leave. Left alone, this file becomes an undifferentiated mixture of stale inventories, roadmaps and live items — at which point it is worse than no record, because it still looks authoritative.
 >
 > **Triage on a schedule:** close what is done, delete what is dead, move anything that is really a specification into `documentation-dev/`. **If triage keeps slipping, that is the signal to adopt a tracker.**
 

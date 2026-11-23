@@ -1,6 +1,6 @@
 # Change Log — product
 
-Append-only history of changes to the product itself — features, fixes, behaviour, architecture. **Newest entry on top.** Implementation detail behind the `dev-log.md` executive summary for sessions that touched this concern; cross-referenced by date. Pending work lives in `todo-product.md`.
+Append-only history of changes to the product itself — features, fixes, behavior, architecture. **Newest entry on top.** Implementation detail behind the `dev-log.md` executive summary for sessions that touched this concern; cross-referenced by date. Pending work lives in `todo-product.md`.
 
 **Append-only.** Entries are never rewritten. A correction is a new dated entry that supersedes — editing a past entry destroys the record of what was believed at the time, which is frequently what someone is looking for.
 

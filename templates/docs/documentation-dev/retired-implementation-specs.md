@@ -2,7 +2,7 @@
 
 **Superseded sections of `latest-implementation-specs.md`, kept rather than deleted.**
 
-**Why the ceremony is worth the friction.** Superseded designs get consulted more often than expected: when a new approach hits a wall the old one had already solved, when a regression traces to behaviour that was intentional under the previous design, or when the reason an approach was abandoned turns out to answer a current question.
+**Why the ceremony is worth the friction.** Superseded designs get consulted more often than expected: when a new approach hits a wall the old one had already solved, when a regression traces to behavior that was intentional under the previous design, or when the reason an approach was abandoned turns out to answer a current question.
 
 Deleting a section makes it unrecoverable *in practice*. It survives in version history, but nobody performs archaeology on a deleted documentation section — the cost of finding it exceeds the cost of re-deriving it badly, so it gets re-derived badly.
 

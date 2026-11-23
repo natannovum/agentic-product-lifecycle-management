@@ -12,13 +12,13 @@ Append-only history of changes to the documentation system itself — this syste
 
 ## Sample — YYYY-MM-DD — System installed
 
-Branch `chore/apms-setup`. Executive summary in `dev-log.md`.
+Branch `chore/aplm-setup`. Executive summary in `dev-log.md`.
 
 ### `CLAUDE.md` — **new**
 
 - Generated from the template. Boilerplate sections adopted unchanged.
 - **Answers sourced from the repository, not the user:** branch topology (from CI trigger conditions), development commands (package manifest), environment prerequisites (CI setup steps).
-- **Answers requiring the user:** the Tier-2 irreversibility list, and the published-surface inventory.
+- **Answers requiring the user:** the list of actions that cannot be undone, and the published-surface inventory.
 - **Adopted as an explicit default:** semantic versioning with human-controlled bumps. Flagged as a default rather than a decision, so it can be corrected.
 
 ### `docs/` — **new**
